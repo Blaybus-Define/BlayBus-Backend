@@ -1,20 +1,13 @@
 ---
 name: "\U0001F340 Feature"
 about: 새로운 기능 추가
-title: ''
-labels: ''
+title: "[FEATURE] "
+labels: feature
 assignees: ''
 
 ---
 
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+## 💡 어떤 걸 개발하나요?
 
-**Describe the solution you'd like**
-A clear and concise description of what you want to happen.
 
-**Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
-
-**Additional context**
-Add any other context or screenshots about the feature request here.
+## 🗒️ 이런 목적으로 개발해요
