@@ -21,5 +21,6 @@ public class ExperienceRecord {
     private LocalDate date; // 획득 날짜
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private ExperienceType experienceType; // 경험치 종류
 }

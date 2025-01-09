@@ -1,9 +1,6 @@
 package blaybus.blaybus_backend.domain.member;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
@@ -28,6 +25,7 @@ public class Member {
     private String jobGroup; // 직무그룹
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private MemberLevel memberLevel; // 레벨
 
     @Column(nullable = false, unique = true)
@@ -38,5 +36,6 @@ public class Member {
 
     private String updatedPassword; // 변경 패스워드
 
-    private int totalExperience; // 총 경험치
+    @Column(nullable = false, columnDefinition = "integer default 0")
+    private int totalExperience = 0; // 총 경험치
 }
