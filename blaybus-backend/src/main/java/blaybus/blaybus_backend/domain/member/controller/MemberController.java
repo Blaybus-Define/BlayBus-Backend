@@ -1,4 +1,4 @@
-package blaybus.blaybus_backend.domain.member;
+package blaybus.blaybus_backend.domain.member.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

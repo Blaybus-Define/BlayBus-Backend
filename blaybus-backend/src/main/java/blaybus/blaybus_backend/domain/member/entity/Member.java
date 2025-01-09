@@ -1,10 +1,18 @@
-package blaybus.blaybus_backend.domain.member;
+package blaybus.blaybus_backend.domain.member.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
 @Entity
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,17 +33,11 @@ public class Member {
     @Column(nullable = false)
     private String jobGroup; // 직무그룹
 
-    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private MemberLevel memberLevel; // 레벨
 
-    @Column(nullable = false, unique = true)
-    private String username; // 아이디
-
     @Column(nullable = false)
-    private String defaultPassword; // 기본 패스워드
-
-    private String updatedPassword; // 변경 패스워드
+    private String password; // 패스워드
 
     @Column(nullable = false, columnDefinition = "integer default 0")
     private int totalExperience = 0; // 총 경험치

@@ -1,4 +1,4 @@
-package blaybus.blaybus_backend.domain.member;
+package blaybus.blaybus_backend.domain.member.entity;
 
 public enum MemberLevel {
 
