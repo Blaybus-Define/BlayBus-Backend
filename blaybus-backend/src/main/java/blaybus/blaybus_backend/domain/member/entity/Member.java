@@ -1,5 +1,6 @@
-package blaybus.blaybus_backend.domain.member;
+package blaybus.blaybus_backend.domain.member.entity;
 
+import blaybus.blaybus_backend.domain.member.MemberLevel;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
