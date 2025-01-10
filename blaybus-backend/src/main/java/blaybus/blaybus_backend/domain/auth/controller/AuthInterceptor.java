@@ -12,7 +12,6 @@ import static blaybus.blaybus_backend.domain.auth.controller.SessionConst.MEMBER
 public class AuthInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        System.out.println("request.getRequestURI() = " + request.getRequestURI());
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute(MEMBER_ID) == null) {
             throw new AuthException(ErrorCode.UNAUTHORIZED_USER);
