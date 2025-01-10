@@ -18,7 +18,7 @@ public class SignupRequest {
     private String department;
     private String jobGroup;
     private String password;
-    private String memberLevel;
+    private int totalExperience;
 
     public Member toMember() {
         return Member.builder()
@@ -28,6 +28,7 @@ public class SignupRequest {
                 .department(this.department)
                 .jobGroup(this.jobGroup)
                 .password(this.password)
+                .memberLevel(MemberLevel.getLevelByExperience(totalExperience))
                 .build();
 
     }
