@@ -1,5 +1,6 @@
 package blaybus.blaybus_backend.domain.auth.controller;
 
+import blaybus.blaybus_backend.domain.auth.dto.LoginResponse;
 import blaybus.blaybus_backend.domain.auth.service.AuthService;
 import blaybus.blaybus_backend.domain.auth.dto.LoginRequest;
 import blaybus.blaybus_backend.domain.auth.dto.LogoutResponse;
@@ -21,7 +22,7 @@ public class AuthController {
 
     @Operation(description = "로그인")
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest, HttpServletRequest request) {
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest, HttpServletRequest request) {
         return ResponseEntity.ok(authService.login(loginRequest, request));
     }
 
@@ -34,7 +35,7 @@ public class AuthController {
 
     @Operation(description = "로그아웃")
     @PostMapping("/logout")
-    public ResponseEntity<?> logout(HttpServletRequest request, HttpServletResponse response) {
+    public ResponseEntity<LogoutResponse> logout(HttpServletRequest request, HttpServletResponse response) {
 
         HttpSession session = request.getSession(false);
         if (session != null) {
