@@ -20,14 +20,14 @@ public class SignupRequest {
     private String password;
     private String memberLevel;
 
-    public Member toMember(String encodedPassword) {
+    public Member toMember() {
         return Member.builder()
                 .employeeNumber(this.employeeNumber)
                 .name(this.name)
                 .hireDate(this.hireDate)
                 .department(this.department)
                 .jobGroup(this.jobGroup)
-                .password(encodedPassword)
+                .password(this.password)
                 .build();
 
     }

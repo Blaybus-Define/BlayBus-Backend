@@ -2,8 +2,7 @@ package blaybus.blaybus_backend.domain.auth.dto;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
 public class LogoutResponse {
-    private String message;
+    private String message = "로그아웃 성공";
 
 }

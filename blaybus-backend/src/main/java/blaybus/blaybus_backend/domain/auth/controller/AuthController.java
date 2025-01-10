@@ -4,8 +4,10 @@ import blaybus.blaybus_backend.domain.auth.service.AuthService;
 import blaybus.blaybus_backend.domain.auth.dto.LoginRequest;
 import blaybus.blaybus_backend.domain.auth.dto.LogoutResponse;
 import blaybus.blaybus_backend.domain.auth.dto.SignupRequest;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,19 +18,28 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
     private final AuthService authService;
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest, HttpSession session) {
-        return ResponseEntity.ok(authService.login(loginRequest, session));
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest, HttpServletRequest request) {
+        return ResponseEntity.ok(authService.login(loginRequest, request));
     }
 
-    //개발용 회원가입 api
     @PostMapping("/signup")
-    public ResponseEntity<?> signup(@RequestBody SignupRequest signupRequest) {
-        return ResponseEntity.ok(authService.signup(signupRequest));
+    public ResponseEntity<Void> signup(@RequestBody SignupRequest signupRequest) {
+        authService.signup(signupRequest);
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<?> logout(HttpSession session) {
-        session.invalidate();
-        return ResponseEntity.ok(new LogoutResponse("로그아웃 성공"));
+    public ResponseEntity<?> logout(HttpServletRequest request, HttpServletResponse response) {
+
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate(); // 세션 무효화
+        }
+        Cookie cookie = new Cookie("JSESSIONID", null);
+        cookie.setPath("/");
+        cookie.setHttpOnly(true);
+        cookie.setMaxAge(0); // 쿠키 삭제
+        response.addCookie(cookie);
+        return ResponseEntity.ok(new LogoutResponse());
     }
 }

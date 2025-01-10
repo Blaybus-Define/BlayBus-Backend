@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
-@AllArgsConstructor
 public class LoginResponse {
-    private String sessionId;
+    private String message = "로그인 성공";
 }
