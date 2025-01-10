@@ -37,6 +37,9 @@ public class Member {
     private String jobGroup; // 직무 그룹
 
     @Column(nullable = false)
+    private String loginId; // 로그인 아이디
+
+    @Column(nullable = false)
     private String password; // 패스워드
 
     @Column(nullable = false, columnDefinition = "integer default 0")
