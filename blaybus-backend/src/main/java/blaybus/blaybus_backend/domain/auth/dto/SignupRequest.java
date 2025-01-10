@@ -32,6 +32,9 @@ public class SignupRequest {
     @Schema(description = "직군", example = "BRANDING", required = true)
     private String jobRole;
 
+    @Schema(description = "아이디", example = "minsu", required = true)
+    private String loginId;
+
     @Schema(description = "비밀번호", example = "1111", required = true)
     private String password;
 
@@ -46,6 +49,7 @@ public class SignupRequest {
                 .department(this.department)
                 .jobGroup(this.jobGroup)
                 .jobRole(JobRole.create(this.jobRole))
+                .loginId(this.loginId)
                 .password(this.password)
                 .totalExperience(totalExperience)
                 .build();

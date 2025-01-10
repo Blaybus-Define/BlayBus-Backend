@@ -24,7 +24,7 @@ public class AuthService {
     private final MemberRepository memberRepository;
 
     public LoginResponse login(LoginRequest loginRequest, HttpServletRequest request) {
-        Member member = memberRepository.findByEmployeeNumber(loginRequest.getEmployeeNumber())
+        Member member = memberRepository.findByLoginId(loginRequest.getLoginId())
                 .orElseThrow(() -> new MemberException(ErrorCode.MEMBER_NOT_FOUND));
 
         if (member != null && member.getPassword().equals(loginRequest.getPassword())) {

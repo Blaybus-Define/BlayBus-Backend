@@ -6,8 +6,8 @@ import lombok.Getter;
 @Getter
 public class LoginRequest {
 
-    @Schema(description = "사원 번호", example = "2023010101", required = true)
-    private String employeeNumber;
+    @Schema(description = "아이디", example = "minsukim", required = true)
+    private String loginId;
     @Schema(description = "비밀번호", example = "1111", required = true)
     private String password;
 }
