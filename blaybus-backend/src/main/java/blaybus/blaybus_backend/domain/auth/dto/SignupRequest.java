@@ -1,5 +1,6 @@
 package blaybus.blaybus_backend.domain.auth.dto;
 
+import blaybus.blaybus_backend.domain.member.entity.JobRole;
 import blaybus.blaybus_backend.domain.member.entity.Member;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,6 +18,7 @@ public class SignupRequest {
     private LocalDate hireDate;
     private String department;
     private String jobGroup;
+    private String jobRole;
     private String password;
     private int totalExperience;
 
@@ -27,9 +29,9 @@ public class SignupRequest {
                 .hireDate(this.hireDate)
                 .department(this.department)
                 .jobGroup(this.jobGroup)
+                .jobRole(JobRole.create(this.jobRole))
                 .password(this.password)
-                .memberLevel(MemberLevel.getLevelByExperience(totalExperience))
+                .totalExperience(totalExperience)
                 .build();
-
     }
 }

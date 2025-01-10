@@ -30,11 +30,11 @@ public class Member {
     @Column(nullable = false)
     private String department; // 소속
 
-    @Column(nullable = false)
-    private String jobGroup; // 직무그룹
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "job_group_id", nullable = false)
+    private JobRole jobRole; // 직군
 
-    @Enumerated(EnumType.STRING)
-    private MemberLevel memberLevel; // 레벨
+    private String jobGroup; // 직무 그룹
 
     @Column(nullable = false)
     private String password; // 패스워드
