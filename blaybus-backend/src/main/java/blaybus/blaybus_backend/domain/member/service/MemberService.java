@@ -5,6 +5,7 @@ import blaybus.blaybus_backend.domain.member.dto.UpdatePwResponseDTO;
 import blaybus.blaybus_backend.domain.member.repository.MemberRepository;
 import blaybus.blaybus_backend.domain.member.dto.InfoResponseDTO;
 import blaybus.blaybus_backend.domain.member.entity.Member;
+import blaybus.blaybus_backend.global.common.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,9 +33,9 @@ public class MemberService {
     }
 
     // 비밀번호 변경
-    public UpdatePwResponseDTO updatePw(UpdatePwRequestDTO updateRequest) {
+    public UpdatePwResponseDTO updatePw(Long id, UpdatePwRequestDTO updateRequest) {
 
-        Member member = memberRepository.findByLoginId(updateRequest.getLoginId())
+        Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
 
         if(!member.getPassword().equals(updateRequest.getOldPassword())) {

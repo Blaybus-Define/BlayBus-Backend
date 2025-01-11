@@ -31,9 +31,10 @@ public class MemberController {
     }
 
     @PutMapping("/update-pw")
-    public ResponseEntity<UpdatePwResponseDTO> updatePw(
+    public ResponseEntity<UpdatePwResponseDTO> updatePw(HttpSession session,
             @RequestBody UpdatePwRequestDTO updateRequest) {
-        UpdatePwResponseDTO updateResponse = memberService.updatePw(updateRequest);
+        Long id = sessionManager.getMemberId(session);
+        UpdatePwResponseDTO updateResponse = memberService.updatePw(id, updateRequest);
         return ResponseEntity.ok(updateResponse);
     }
 
