@@ -24,7 +24,7 @@ public class MemberController {
         this.sessionManager = sessionManager;
     }
 
-    @Operation(description = "내 정보 확인")
+    @Operation(summary = "내 정보 확인", description = "Header의 세션 ID로 사용자 인증")
     @GetMapping("/info")
     public ResponseEntity<InfoResponseDTO> getInfo(HttpSession session) {
         Long id = sessionManager.getMemberId(session);
@@ -32,7 +32,7 @@ public class MemberController {
         return ResponseEntity.ok(memberInfo);
     }
 
-    @Operation(description = "패스워드 수정")
+    @Operation(summary = "패스워드 변경", description = "Header의 세션 ID로 사용자 인증")
     @PutMapping("/update-pw")
     public ResponseEntity<UpdatePwResponseDTO> updatePw(HttpSession session,
             @RequestBody UpdatePwRequestDTO updateRequest) {

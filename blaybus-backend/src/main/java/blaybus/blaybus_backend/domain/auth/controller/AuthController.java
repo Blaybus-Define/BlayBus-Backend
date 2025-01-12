@@ -20,20 +20,20 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
     private final AuthService authService;
 
-    @Operation(description = "로그인")
+    @Operation(summary = "로그인")
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest, HttpServletRequest request) {
         return ResponseEntity.ok(authService.login(loginRequest, request));
     }
 
-    @Operation(description = "회원가입")
+    @Operation(summary = "회원가입")
     @PostMapping("/signup")
     public ResponseEntity<Void> signup(@RequestBody SignupRequest signupRequest) {
         authService.signup(signupRequest);
         return ResponseEntity.ok().build();
     }
 
-    @Operation(description = "로그아웃")
+    @Operation(summary = "로그아웃")
     @PostMapping("/logout")
     public ResponseEntity<LogoutResponse> logout(HttpServletRequest request, HttpServletResponse response) {
 
