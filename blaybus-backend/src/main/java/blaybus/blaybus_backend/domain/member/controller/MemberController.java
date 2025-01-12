@@ -5,6 +5,7 @@ import blaybus.blaybus_backend.domain.member.dto.UpdatePwRequestDTO;
 import blaybus.blaybus_backend.domain.member.dto.UpdatePwResponseDTO;
 import blaybus.blaybus_backend.domain.member.service.MemberService;
 import blaybus.blaybus_backend.global.common.SessionManager;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,7 @@ public class MemberController {
         this.sessionManager = sessionManager;
     }
 
+    @Operation(description = "내 정보 확인")
     @GetMapping("/info")
     public ResponseEntity<InfoResponseDTO> getInfo(HttpSession session) {
         Long id = sessionManager.getMemberId(session);
@@ -30,6 +32,7 @@ public class MemberController {
         return ResponseEntity.ok(memberInfo);
     }
 
+    @Operation(description = "패스워드 수정")
     @PutMapping("/update-pw")
     public ResponseEntity<UpdatePwResponseDTO> updatePw(HttpSession session,
             @RequestBody UpdatePwRequestDTO updateRequest) {
