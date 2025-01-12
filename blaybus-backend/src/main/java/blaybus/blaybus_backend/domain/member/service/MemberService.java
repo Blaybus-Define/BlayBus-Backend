@@ -27,7 +27,10 @@ public class MemberService {
                 .name(member.getName())
                 .hireDate(member.getHireDate())
                 .department(member.getDepartment())
-                .levelName("")
+                .jobGroup(member.getJobGroup())
+                .loginId(member.getLoginId())
+                .totalExperience(member.getTotalExperience())
+                .levelName(memberRepository.findLevelNameById(id))
                 .build();
 
     }

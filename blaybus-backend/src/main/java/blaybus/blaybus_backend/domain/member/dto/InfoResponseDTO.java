@@ -14,6 +14,9 @@ public class InfoResponseDTO {
     private String name;
     private LocalDate hireDate;
     private String department;
+    private String jobGroup;
+    private String loginId;
+    private int totalExperience;
     private String levelName;
     private String jobGroup;
     private String loginId;
