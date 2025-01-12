@@ -18,6 +18,4 @@ public class InfoResponseDTO {
     private String loginId;
     private int totalExperience;
     private String levelName;
-    private String jobGroup;
-    private String loginId;
 }
