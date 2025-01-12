@@ -5,13 +5,15 @@ import blaybus.blaybus_backend.domain.post.dto.AllPostResponse;
 import blaybus.blaybus_backend.domain.post.dto.SavePostResponse;
 import blaybus.blaybus_backend.domain.post.entity.Post;
 import blaybus.blaybus_backend.domain.post.repository.PostRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class PostService {
-    private PostRepository postRepository;
+    private final PostRepository postRepository;
     public SavePostResponse savePost(SavePostRequest savePostRequest) {
         Post post = savePostRequest.toPost();
         postRepository.save(post);
@@ -19,6 +21,7 @@ public class PostService {
     }
 
     public AllPostResponse findAllPost() {
+        postRepository.findAll();
         return null;
     }
 }
