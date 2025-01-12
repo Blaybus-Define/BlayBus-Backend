@@ -6,6 +6,7 @@ import blaybus.blaybus_backend.domain.auth.dto.LoginRequest;
 import blaybus.blaybus_backend.domain.auth.dto.LogoutResponse;
 import blaybus.blaybus_backend.domain.auth.dto.SignupRequest;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -13,7 +14,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+@Tag(name = "인증 API")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/auth")
