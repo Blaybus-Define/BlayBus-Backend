@@ -1,9 +1,10 @@
-package blaybus.blaybus_backend.domain.post;
+package blaybus.blaybus_backend.domain.post.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.Builder;
 
 public class Post {
 
@@ -14,6 +15,12 @@ public class Post {
     @Column(nullable = false)
     private String title;
 
-    @Column(nullable = false, columnDefinition = "TEXT")
+    @Column(nullable = false)
     private String content;
+
+    @Builder
+    public Post(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
 }

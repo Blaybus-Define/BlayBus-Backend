@@ -15,4 +15,6 @@ public class InfoResponseDTO {
     private LocalDate hireDate;
     private String department;
     private String levelName;
+    private String jobGroup;
+    private String loginId;
 }
