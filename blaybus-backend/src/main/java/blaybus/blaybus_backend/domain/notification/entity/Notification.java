@@ -1,4 +1,4 @@
-package blaybus.blaybus_backend.domain.notification;
+package blaybus.blaybus_backend.domain.notification.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;

@@ -41,6 +41,8 @@ public class SignupRequest {
     @Schema(description = "총 경험치", example = "10000", required = true)
     private int totalExperience;
 
+
+
     public Member toMember() {
         return Member.builder()
                 .employeeNumber(this.employeeNumber)
@@ -51,7 +53,7 @@ public class SignupRequest {
                 .jobRole(JobRole.create(this.jobRole))
                 .loginId(this.loginId)
                 .password(this.password)
-                .totalExperience(totalExperience)
+                .totalExperience(this.totalExperience)
                 .build();
     }
 }

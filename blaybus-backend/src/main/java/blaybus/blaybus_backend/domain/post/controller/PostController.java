@@ -5,10 +5,12 @@ import blaybus.blaybus_backend.domain.post.dto.SavePostRequest;
 import blaybus.blaybus_backend.domain.post.dto.SavePostResponse;
 import blaybus.blaybus_backend.domain.post.service.PostService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@Tag(name = "게시글 API")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/post")
