@@ -1,16 +1,16 @@
 package blaybus.blaybus_backend.domain.notification.service;
 
 import blaybus.blaybus_backend.domain.notification.dto.FcmNotificationDTO;
-import blaybus.blaybus_backend.domain.notification.exception.NotificationException;
-import blaybus.blaybus_backend.global.exception.ErrorCode;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.Notification;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 public class NotificationService {
-    public String sendNotification(FcmNotificationDTO notificationDTO) {
+    public void sendNotification(FcmNotificationDTO notificationDTO) {
         try {
             // 메시지 구성
             Message message = Message.builder()
@@ -23,9 +23,9 @@ public class NotificationService {
                     .build();
 
             // 메시지 전송
-            return FirebaseMessaging.getInstance().send(message);
+            FirebaseMessaging.getInstance().send(message);
         } catch (Exception e) {
-            throw new NotificationException(ErrorCode.FAILED_MESSAGE_SEND);
+            log.warn("[알림 실패]: {} ({})", e.getClass().getSimpleName(), e.getMessage());
         }
     }
 }
