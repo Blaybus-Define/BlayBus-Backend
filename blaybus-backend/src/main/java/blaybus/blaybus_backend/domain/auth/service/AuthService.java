@@ -30,6 +30,7 @@ public class AuthService {
         if (member != null && member.getPassword().equals(loginRequest.getPassword())) {
             HttpSession session = request.getSession();
             session.setAttribute(MEMBER_ID, member.getId());
+            member.setFcmToken(loginRequest.getFcmToken());
             return new LoginResponse();
         } else {
             throw new AuthException(ErrorCode.INVALID_PASSWORD);
@@ -42,5 +43,11 @@ public class AuthService {
         }
         Member member = signupRequest.toMember();
         memberRepository.save(member);
+    }
+
+    public void logout(Long memberId) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new MemberException(ErrorCode.MEMBER_NOT_FOUND));
+        member.setFcmToken(null);
     }
 }

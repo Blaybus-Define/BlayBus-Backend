@@ -11,4 +11,6 @@ public class LoginRequest {
     private String loginId;
     @Schema(description = "비밀번호", example = "1111", required = true)
     private String password;
+    @Schema(description = "fcm 토큰", example = "12askjdb123nmn~~~")
+    private String fcmToken;
 }
