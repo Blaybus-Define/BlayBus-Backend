@@ -23,7 +23,7 @@ public class PostService {
     private final PostRepository postRepository;
     private final MemberRepository memberRepository;
     private final NotificationService notificationService;
-    private static final String POST_NOTIFICATION_TITLE = "새로운 게시글이 등록되었습니다";
+    private static final String POST_NOTIFICATION_TITLE = "새로운 게시글이 등록되었어요!";
 
 
     public SavePostResponse savePost(SavePostRequest savePostRequest) {
