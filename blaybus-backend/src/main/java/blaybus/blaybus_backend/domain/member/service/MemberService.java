@@ -1,11 +1,8 @@
 package blaybus.blaybus_backend.domain.member.service;
 
-import blaybus.blaybus_backend.domain.member.dto.UpdatePwRequestDTO;
-import blaybus.blaybus_backend.domain.member.dto.UpdatePwResponseDTO;
+import blaybus.blaybus_backend.domain.member.dto.*;
 import blaybus.blaybus_backend.domain.member.repository.MemberRepository;
-import blaybus.blaybus_backend.domain.member.dto.InfoResponseDTO;
 import blaybus.blaybus_backend.domain.member.entity.Member;
-import blaybus.blaybus_backend.global.common.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +28,7 @@ public class MemberService {
                 .loginId(member.getLoginId())
                 .totalExperience(member.getTotalExperience())
                 .levelName(memberRepository.findLevelNameById(id))
+                .profileCharacter(member.getProfileCharacter())
                 .build();
 
     }
@@ -50,4 +48,14 @@ public class MemberService {
         return new UpdatePwResponseDTO("비밀번호가 변경되었습니다.");
     }
 
+    // 프로필 캐릭터 변경
+    public UpdatePCharResponseDTO updatePChar(Long id, UpdatePCharRequestDTO updateRequest) {
+        Member member = memberRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
+
+        member.setProfileCharacter(updateRequest.getProfileCharacter());
+        memberRepository.save(member);
+
+        return new UpdatePCharResponseDTO();
+    }
 }

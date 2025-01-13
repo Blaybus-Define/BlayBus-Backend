@@ -1,5 +1,6 @@
 package blaybus.blaybus_backend.domain.member.dto;
 
+import blaybus.blaybus_backend.domain.member.entity.ProfileCharacter;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,4 +19,5 @@ public class InfoResponseDTO {
     private String loginId;
     private int totalExperience;
     private String levelName;
+    private ProfileCharacter profileCharacter;
 }

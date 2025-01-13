@@ -43,6 +43,9 @@ public class Member {
     @Column(nullable = false, columnDefinition = "integer default 0")
     private int totalExperience = 0; // 총 경험치
 
+    @Column(nullable = false)
+    private ProfileCharacter profileCharacter; // 프로필 캐릭터
+
     @Column(length = 500)
     private String fcmToken;
 }
