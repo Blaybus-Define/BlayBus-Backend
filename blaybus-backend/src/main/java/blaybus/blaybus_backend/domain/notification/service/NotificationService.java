@@ -1,5 +1,7 @@
-package blaybus.blaybus_backend.domain.notification;
+package blaybus.blaybus_backend.domain.notification.service;
 
+import blaybus.blaybus_backend.domain.notification.dto.FcmNotificationDTO;
+import blaybus.blaybus_backend.domain.notification.exception.NotificationException;
 import blaybus.blaybus_backend.global.exception.ErrorCode;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.Message;
@@ -8,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class NotificationService {
-    public void sendNotification(FcmNotificationDTO notificationDTO) {
+    public String sendNotification(FcmNotificationDTO notificationDTO) {
         try {
             // 메시지 구성
             Message message = Message.builder()
@@ -21,7 +23,7 @@ public class NotificationService {
                     .build();
 
             // 메시지 전송
-            String response = FirebaseMessaging.getInstance().send(message);
+            return FirebaseMessaging.getInstance().send(message);
         } catch (Exception e) {
             throw new NotificationException(ErrorCode.FAILED_MESSAGE_SEND);
         }

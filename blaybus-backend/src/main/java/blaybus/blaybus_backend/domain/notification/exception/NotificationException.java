@@ -1,4 +1,4 @@
-package blaybus.blaybus_backend.domain.notification;
+package blaybus.blaybus_backend.domain.notification.exception;
 
 import blaybus.blaybus_backend.global.exception.BaseException;
 import blaybus.blaybus_backend.global.exception.ErrorCode;

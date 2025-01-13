@@ -41,6 +41,9 @@ public class SignupRequest {
     @Schema(description = "총 경험치", example = "10000", required = true)
     private int totalExperience;
 
+    @Schema(description = "fcm 토큰", example = "12askjdb123nmn~~~")
+    private String fcmToken;
+
     public Member toMember() {
         return Member.builder()
                 .employeeNumber(this.employeeNumber)
@@ -51,7 +54,8 @@ public class SignupRequest {
                 .jobRole(JobRole.create(this.jobRole))
                 .loginId(this.loginId)
                 .password(this.password)
-                .totalExperience(totalExperience)
+                .totalExperience(this.totalExperience)
+                .fcmToken(this.fcmToken)
                 .build();
     }
 }
