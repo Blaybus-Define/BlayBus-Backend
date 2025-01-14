@@ -1,7 +1,7 @@
 package blaybus.blaybus_backend.domain.quest.controller;
 
 import blaybus.blaybus_backend.domain.quest.dto.MemberQuestResponse;
-import blaybus.blaybus_backend.domain.quest.service.MemberQuestService;
+import blaybus.blaybus_backend.domain.quest.service.QuestService;
 import blaybus.blaybus_backend.global.common.SessionManager;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -10,17 +10,14 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "퀘스트 API")
 @RequestMapping("/quests")
 @RestController
 @RequiredArgsConstructor
-public class MemberQuestController {
-    private final MemberQuestService memberQuestService;
+public class QuestController {
+    private final QuestService questService;
     private final SessionManager sessionManager;
 
     @Operation(
@@ -36,6 +33,20 @@ public class MemberQuestController {
             @RequestParam(required = false) Integer week
     ) {
         Long memberId = sessionManager.getMemberId(session);
-        return ResponseEntity.ok(memberQuestService.getMyQuests(memberId, year, month, week));
+        return ResponseEntity.ok(questService.getMyQuests(memberId, year, month, week));
+    }
+
+    //직무 부여 퀘스트 생성
+    @PostMapping("/job")
+    public ResponseEntity<Void> createJobQuest(@RequestBody QuestSaveRequest questSaveRequest) {
+        questService.createJobQuest(questSaveRequest);
+        return ResponseEntity.ok().build();
+    }
+
+    // 리더 부여 퀘스트 생성
+    @PostMapping("/leader")
+    public ResponseEntity<Void> createLeaderQuest(@RequestBody QuestSaveRequest questSaveRequest) {
+        questService.createLeaderQuest(questSaveRequest);
+        return ResponseEntity.ok().build();
     }
 }
