@@ -5,6 +5,8 @@ import blaybus.blaybus_backend.domain.member.dto.UpdatePwRequestDTO;
 import blaybus.blaybus_backend.domain.member.dto.UpdatePwResponseDTO;
 import blaybus.blaybus_backend.domain.member.service.MemberService;
 import blaybus.blaybus_backend.global.common.SessionManager;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,7 @@ public class MemberController {
         this.sessionManager = sessionManager;
     }
 
+    @Parameter(name = "Cookie", in = ParameterIn.HEADER, required = true)
     @GetMapping("/info")
     public ResponseEntity<InfoResponseDTO> getInfo(HttpSession session) {
         Long id = sessionManager.getMemberId(session);
@@ -32,6 +35,7 @@ public class MemberController {
         return ResponseEntity.ok(memberInfo);
     }
 
+    @Parameter(name = "Cookie", in = ParameterIn.HEADER, required = true)
     @PutMapping("/update-pw")
     public ResponseEntity<UpdatePwResponseDTO> updatePw(HttpSession session,
             @RequestBody UpdatePwRequestDTO updateRequest) {

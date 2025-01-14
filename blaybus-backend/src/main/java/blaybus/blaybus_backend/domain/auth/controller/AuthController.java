@@ -7,6 +7,8 @@ import blaybus.blaybus_backend.domain.auth.dto.LogoutResponse;
 import blaybus.blaybus_backend.domain.auth.dto.SignupRequest;
 import blaybus.blaybus_backend.global.common.SessionManager;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -37,6 +39,7 @@ public class AuthController {
     }
 
     @Operation(summary = "로그아웃")
+    @Parameter(name = "Cookie", in = ParameterIn.HEADER, required = true)
     @PostMapping("/logout")
     public ResponseEntity<LogoutResponse> logout(HttpSession session, HttpServletResponse response) {
         Long memberId = sessionManager.getMemberId(session);

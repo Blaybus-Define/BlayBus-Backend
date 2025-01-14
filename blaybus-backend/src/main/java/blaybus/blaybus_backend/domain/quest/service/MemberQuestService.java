@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -27,6 +29,9 @@ public class MemberQuestService {
             endDate = startDate.withDayOfMonth(startDate.lengthOfMonth());
         }
         List<MemberQuest> quests = memberQuestRepository.findAllByMemberIdAndDateBetween(memberId, startDate, endDate);
+        quests = quests.stream()
+                .sorted(Comparator.comparing(MemberQuest::getAchievedLevel))
+                .collect(Collectors.toList());
         return new MemberQuestResponse(quests);
     }
 }
