@@ -1,6 +1,6 @@
 package blaybus.blaybus_backend.domain.auth.dto;
 
-import blaybus.blaybus_backend.domain.member.entity.JobRole;
+import blaybus.blaybus_backend.domain.member.entity.JobInfo;
 import blaybus.blaybus_backend.domain.member.entity.Member;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -48,9 +48,7 @@ public class SignupRequest {
                 .employeeNumber(this.employeeNumber)
                 .name(this.name)
                 .hireDate(this.hireDate)
-                .department(this.department)
-                .jobGroup(this.jobGroup)
-                .jobRole(JobRole.create(this.jobRole))
+                .jobInfo(new JobInfo(this.department, this.jobGroup, this.jobRole))
                 .loginId(this.loginId)
                 .password(this.password)
                 .totalExperience(this.totalExperience)

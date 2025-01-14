@@ -18,6 +18,7 @@ public class QuestSaveRequest {
     private LocalDate endDate;
     private String department; //소속
     private String jobGroup; //직무그룹
+    private String jobRole; //직군
 
     public Quest toQuest(QuestType questType) {
         return Quest.builder()
@@ -31,6 +32,7 @@ public class QuestSaveRequest {
                 .endDate(this.endDate)
                 .department(this.department)
                 .jobGroup(this.jobGroup)
+                .jobRole(this.jobRole)
                 .build();
     }
 }

@@ -1,5 +1,6 @@
 package blaybus.blaybus_backend.domain.quest.entity;
 
+import blaybus.blaybus_backend.domain.member.entity.JobInfo;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -28,11 +29,12 @@ public class Quest {
     private int mediumCriterionExperience; // MID 기준을 만족하는 경험치
     private LocalDate startDate; // 시작 날짜
     private LocalDate endDate; // 종료 날짜
-    private String department; // TODO : 소속 (객체로 빼내기)
-    private String jobGroup; // TODO : 직무 그룹 (객체로 빼내기)
+
+    @Embedded
+    private JobInfo jobInfo;
 
     @Builder
-    public Quest(String title, String description, QuestType questType, QuestFrequency frequency, int maxCriterionExperience, int mediumCriterionExperience, LocalDate startDate, LocalDate endDate, String department, String jobGroup) {
+    public Quest(String title, String description, QuestType questType, QuestFrequency frequency, int maxCriterionExperience, int mediumCriterionExperience, LocalDate startDate, LocalDate endDate, String department, String jobGroup, String jobRole) {
         this.title = title;
         this.description = description;
         this.questType = questType;
@@ -41,7 +43,6 @@ public class Quest {
         this.mediumCriterionExperience = mediumCriterionExperience;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.department = department;
-        this.jobGroup = jobGroup;
+        this.jobInfo = new JobInfo(department, jobGroup, jobRole);
     }
 }

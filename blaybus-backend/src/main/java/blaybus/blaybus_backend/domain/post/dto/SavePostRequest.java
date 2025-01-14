@@ -1,14 +1,10 @@
 package blaybus.blaybus_backend.domain.post.dto;
 
-import blaybus.blaybus_backend.domain.member.entity.JobRole;
-import blaybus.blaybus_backend.domain.member.entity.Member;
 import blaybus.blaybus_backend.domain.post.entity.Post;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
-import java.time.format.DateTimeFormatter;
 
 @Getter
 @AllArgsConstructor

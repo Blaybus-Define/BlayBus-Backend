@@ -25,14 +25,8 @@ public class Member {
     @Column(nullable = false)
     private LocalDate hireDate; // 입사일
 
-    @Column(nullable = false)
-    private String department; // 소속
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "job_group_id", nullable = false)
-    private JobRole jobRole; // 직군
-
-    private String jobGroup; // 직무 그룹
+    @Embedded
+    private JobInfo jobInfo;
 
     @Column(nullable = false)
     private String loginId; // 로그인 아이디
@@ -45,4 +39,6 @@ public class Member {
 
     @Column(length = 500)
     private String fcmToken;
+
+    private String level;
 }
