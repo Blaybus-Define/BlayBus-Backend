@@ -1,8 +1,6 @@
 package blaybus.blaybus_backend.domain.member.controller;
 
-import blaybus.blaybus_backend.domain.member.dto.InfoResponseDTO;
-import blaybus.blaybus_backend.domain.member.dto.UpdatePwRequestDTO;
-import blaybus.blaybus_backend.domain.member.dto.UpdatePwResponseDTO;
+import blaybus.blaybus_backend.domain.member.dto.*;
 import blaybus.blaybus_backend.domain.member.service.MemberService;
 import blaybus.blaybus_backend.global.common.SessionManager;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -42,6 +40,13 @@ public class MemberController {
         Long id = sessionManager.getMemberId(session);
         UpdatePwResponseDTO updateResponse = memberService.updatePw(id, updateRequest);
         return ResponseEntity.ok(updateResponse);
+    }
+
+    @PutMapping("/update-char")
+    public ResponseEntity<UpdatePCharResponseDTO> updatePChar(HttpSession session,
+            @RequestBody UpdatePCharRequestDTO req) {
+        Long id = sessionManager.getMemberId(session);
+        return ResponseEntity.ok(memberService.updatePChar(id, req));
     }
 
 }
