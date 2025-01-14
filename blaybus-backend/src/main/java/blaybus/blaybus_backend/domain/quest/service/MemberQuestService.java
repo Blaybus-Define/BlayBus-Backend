@@ -16,10 +16,16 @@ import java.util.List;
 public class MemberQuestService {
     private final MemberQuestRepository memberQuestRepository;
 
-    //월별 전체 조회
-    public MemberQuestResponse getMyQuests(Long memberId, Integer year, Integer month) {
-        LocalDate startDate = LocalDate.of(year, month, 1);
-        LocalDate endDate = startDate.withDayOfMonth(startDate.lengthOfMonth());
+    public MemberQuestResponse getMyQuests(Long memberId, Integer year, Integer month, Integer week) {
+        LocalDate startDate;
+        LocalDate endDate;
+        if (week != null) {
+            startDate = LocalDate.of(year, month, 1).plusWeeks(week - 1);
+            endDate = startDate.plusDays(6);
+        } else {
+            startDate = LocalDate.of(year, month, 1);
+            endDate = startDate.withDayOfMonth(startDate.lengthOfMonth());
+        }
         List<MemberQuest> quests = memberQuestRepository.findAllByMemberIdAndDateBetween(memberId, startDate, endDate);
         return new MemberQuestResponse(quests);
     }

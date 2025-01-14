@@ -15,7 +15,10 @@ public class MemberQuest {
 
     private String title;
     @Enumerated(EnumType.STRING)
-    private QuestType type;
+    private QuestType questType;
+
+    @Enumerated(EnumType.STRING)
+    private QuestFrequency frequency; // 월별 또는 주별
 
     @Enumerated(EnumType.STRING)
     private AchievementLevel achievedLevel = AchievementLevel.NOT_ACHIEVED;

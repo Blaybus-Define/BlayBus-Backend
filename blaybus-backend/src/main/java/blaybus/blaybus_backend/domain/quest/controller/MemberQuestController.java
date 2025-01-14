@@ -18,14 +18,14 @@ public class MemberQuestController {
     private final MemberQuestService memberQuestService;
     private final SessionManager sessionManager;
 
-    //퀘스트 조회
-    @GetMapping
-    public ResponseEntity<MemberQuestResponse> getSortedQuests(
+    @GetMapping("/member")
+    public ResponseEntity<MemberQuestResponse> getMyQuests(
             HttpSession session,
-            @RequestParam(required = false) Integer year,
-            @RequestParam(required = false) Integer month
+            @RequestParam Integer year,
+            @RequestParam Integer month,
+            @RequestParam(required = false) Integer week
     ) {
         Long memberId = sessionManager.getMemberId(session);
-        return ResponseEntity.ok(memberQuestService.getMyQuests(memberId, year, month));
+        return ResponseEntity.ok(memberQuestService.getMyQuests(memberId, year, month, week));
     }
 }
