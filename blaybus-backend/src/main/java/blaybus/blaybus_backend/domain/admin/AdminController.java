@@ -28,20 +28,16 @@ public class AdminController {
         return ResponseEntity.ok().build();
     }
 
-    //직무별 퀘스트 달성 처리 -> 상태 바꾸고 경험치 적립
-    @PutMapping("/quest/job/approve")
-    public ResponseEntity<MemberQuestResponse> approveJobQuest(@RequestBody ApproveJobQuestRequest approveJobQuestRequest) {
-        return null;
-    }
-
-    //리더부여 퀘스트 달성 처리
-    @PutMapping("/quest/leader/approve")
-    public ResponseEntity<MemberQuestResponse> approveLeaderQuest(@RequestBody ApproveLeaderQuestRequest approveLeaderQuestRequest) {
-        return null;
+    @PutMapping("/quest/approve")
+    public ResponseEntity<Void> approveJobQuest(@RequestBody ApproveQuestRequest approveQuestRequest) {
+        questService.approveJobQuest(approveQuestRequest);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/quest/member")
     public ResponseEntity<MemberQuestResponse> findMemberQuest(@RequestParam String loginId) {
         return ResponseEntity.ok(questService.getMemberQuests(loginId));
     }
+
+    //인사평가, 전사 프로젝트 경험치 적립
 }

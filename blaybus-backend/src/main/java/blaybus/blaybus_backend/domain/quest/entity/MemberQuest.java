@@ -38,4 +38,8 @@ public class MemberQuest {
         this.date = date;
         this.achievedLevel = AchievementLevel.NOT_ACHIEVED;
     }
+
+    public void updateAchievedLevel(AchievementLevel achievedLevel) {
+        this.achievedLevel = achievedLevel;
+    }
 }

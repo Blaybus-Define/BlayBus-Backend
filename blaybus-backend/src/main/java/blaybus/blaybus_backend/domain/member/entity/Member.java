@@ -44,4 +44,8 @@ public class Member {
     private String fcmToken;
 
     private String level;
+
+    public void plusExperience(int experience) {
+        this.totalExperience += experience;
+    }
 }

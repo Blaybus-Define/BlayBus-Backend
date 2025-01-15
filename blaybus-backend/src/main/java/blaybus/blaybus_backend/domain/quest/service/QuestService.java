@@ -1,15 +1,14 @@
 package blaybus.blaybus_backend.domain.quest.service;
 
+import blaybus.blaybus_backend.domain.admin.ApproveQuestRequest;
 import blaybus.blaybus_backend.domain.member.entity.Member;
 import blaybus.blaybus_backend.domain.member.exception.MemberException;
 import blaybus.blaybus_backend.domain.member.repository.MemberRepository;
+import blaybus.blaybus_backend.domain.quest.entity.*;
+import blaybus.blaybus_backend.domain.quest.exception.QuestException;
 import blaybus.blaybus_backend.domain.quest.controller.QuestSaveRequest;
 import blaybus.blaybus_backend.domain.quest.dto.MemberQuestResponse;
-import blaybus.blaybus_backend.domain.quest.entity.Quest;
-import blaybus.blaybus_backend.domain.quest.entity.QuestFrequency;
-import blaybus.blaybus_backend.domain.quest.entity.QuestType;
 import blaybus.blaybus_backend.domain.quest.repository.MemberQuestRepository;
-import blaybus.blaybus_backend.domain.quest.entity.MemberQuest;
 import blaybus.blaybus_backend.domain.quest.repository.QuestRepository;
 import blaybus.blaybus_backend.global.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
@@ -111,5 +110,23 @@ public class QuestService {
                 .orElseThrow(() -> new MemberException(ErrorCode.MEMBER_NOT_FOUND));
         List<MemberQuest> memberQuest = memberQuestRepository.findAllByMember(member);
         return new MemberQuestResponse(memberQuest);
+    }
+
+    public void approveJobQuest(ApproveQuestRequest approveJobQuestRequest) {
+        Long memberQuestId = approveJobQuestRequest.getMemberQuestId();
+        MemberQuest memberQuest = memberQuestRepository.findByIdAndAchievedLevel(memberQuestId, AchievementLevel.NOT_ACHIEVED)
+                .orElseThrow(() -> new QuestException(ErrorCode.ALREADY_COMPLETED));
+
+        AchievementLevel achievementLevel = AchievementLevel.fromValue(approveJobQuestRequest.getAchievementLevel());
+        memberQuest.updateAchievedLevel(achievementLevel);
+        int experience = switch (achievementLevel) {
+            case MAX -> memberQuest.getQuest().getMaxCriterionExperience();
+            case MEDIUM -> memberQuest.getQuest().getMediumCriterionExperience();
+            default -> 0;
+        };
+        if (experience > 0) {
+            memberQuest.getMember().plusExperience(experience);
+        }
+
     }
 }
