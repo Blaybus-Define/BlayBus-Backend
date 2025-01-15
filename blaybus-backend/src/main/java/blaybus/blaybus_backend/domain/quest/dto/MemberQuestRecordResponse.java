@@ -1,5 +1,6 @@
 package blaybus.blaybus_backend.domain.quest.dto;
 
+import blaybus.blaybus_backend.domain.quest.entity.AchievementLevel;
 import blaybus.blaybus_backend.domain.quest.entity.MemberQuest;
 import blaybus.blaybus_backend.domain.quest.entity.Quest;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -23,6 +24,9 @@ public class MemberQuestRecordResponse {
     @Schema(description = "퀘스트 주기(MONTHLY/WEEKLY)", example = "MONTHLY")
     private String questFrequency;
 
+    @Schema(description = "부여 경험치", example = "50")
+    private Integer experience;
+
 
     public static MemberQuestRecordResponse from(MemberQuest quest) {
         return new MemberQuestRecordResponse(quest);
@@ -30,12 +34,21 @@ public class MemberQuestRecordResponse {
 
     public MemberQuestRecordResponse(MemberQuest memberQuest) {
         Quest quest = memberQuest.getQuest();
+        AchievementLevel achievedLevel = memberQuest.getAchievedLevel();
+
         this.id = memberQuest.getId();
         this.title = quest.getTitle();
         this.questType = quest.getQuestType().getDescription();
-        this.achievedLevel = String.valueOf(memberQuest.getAchievedLevel());
+        this.achievedLevel = String.valueOf(achievedLevel);
         this.description = quest.getDescription();
         this.date = String.valueOf(memberQuest.getDate());
         this.questFrequency = String.valueOf(quest.getFrequency());
+        this.experience = switch (achievedLevel) {
+            case MAX -> quest.getMaxCriterionExperience();
+            case FAIL -> 0;
+            case MEDIUM -> quest.getMediumCriterionExperience();
+            default -> null;
+        };
+
     }
 }
