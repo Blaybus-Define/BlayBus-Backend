@@ -17,7 +17,7 @@ public class QuestSaveRequest {
     private String department; //소속
     private String jobGroup; //직무그룹
     private String jobRole; //직군
-    private List<String> employeeNumbers;
+    private List<String> loginIds;
 
     public Quest toQuest(QuestType questType) {
         return Quest.builder()

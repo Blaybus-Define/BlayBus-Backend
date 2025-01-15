@@ -1,5 +1,6 @@
 package blaybus.blaybus_backend.domain.quest.repository;
 
+import blaybus.blaybus_backend.domain.member.entity.Member;
 import blaybus.blaybus_backend.domain.quest.entity.MemberQuest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -11,4 +12,5 @@ import java.util.List;
 public interface MemberQuestRepository extends JpaRepository<MemberQuest, Long> {
     List<MemberQuest> findAllByMemberIdAndDateBetween(Long memberId, LocalDate startDate, LocalDate endDate);
 
+    List<MemberQuest> findAllByMember(Member member);
 }

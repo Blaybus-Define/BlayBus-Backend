@@ -8,6 +8,8 @@ import lombok.Getter;
 
 @Getter
 public class MemberQuestRecordResponse {
+    @Schema(description = "퀘스트 id", example = "1")
+    private Long id;
     @Schema(description = "퀘스트명", example = "월 특근")
     private String title;
     @Schema(description = "퀘스트타입(직무/리더부여)", example = "직무")
@@ -28,6 +30,7 @@ public class MemberQuestRecordResponse {
 
     public MemberQuestRecordResponse(MemberQuest memberQuest) {
         Quest quest = memberQuest.getQuest();
+        this.id = memberQuest.getId();
         this.title = quest.getTitle();
         this.questType = quest.getQuestType().getDescription();
         this.achievedLevel = String.valueOf(memberQuest.getAchievedLevel());
