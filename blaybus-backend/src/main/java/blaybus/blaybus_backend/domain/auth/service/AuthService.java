@@ -41,6 +41,7 @@ public class AuthService {
         if (memberRepository.existsByEmployeeNumber(signupRequest.getEmployeeNumber())) {
             throw new MemberException(ErrorCode.DUPLICATE_EMPLOYEE_NUMBER);
         }
+
         Member member = signupRequest.toMember();
         memberRepository.save(member);
     }

@@ -9,7 +9,6 @@ import java.util.List;
 
 @Repository
 public interface MemberQuestRepository extends JpaRepository<MemberQuest, Long> {
-    List<MemberQuest> findAllByMemberId(Long memberId);
-
     List<MemberQuest> findAllByMemberIdAndDateBetween(Long memberId, LocalDate startDate, LocalDate endDate);
+
 }
