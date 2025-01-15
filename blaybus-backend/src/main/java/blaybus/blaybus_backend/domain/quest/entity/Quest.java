@@ -24,9 +24,9 @@ public class Quest {
     @Enumerated(EnumType.STRING)
     private QuestFrequency frequency;
 
-    private int maxCriterionExperience; // MAX 기준을 만족하는 경험치
+    private int maxCriterionExperience; // MAX일 때 부여하는 경험치
 
-    private int mediumCriterionExperience; // MID 기준을 만족하는 경험치
+    private int mediumCriterionExperience; // MID일 때 부여하는 경험치
 
     @Embedded
     private JobInfo jobInfo;
@@ -41,4 +41,5 @@ public class Quest {
         this.mediumCriterionExperience = mediumCriterionExperience;
         this.jobInfo = new JobInfo(department, jobGroup, jobRole);
     }
+
 }
