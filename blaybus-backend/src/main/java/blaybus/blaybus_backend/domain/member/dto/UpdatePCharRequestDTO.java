@@ -8,6 +8,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UpdatePCharRequestDTO {
-    @Schema(description = "변경할 캐릭터", example = "남3", required = true)
+    @Schema(description = "변경할 캐릭터", example = "FLOWER", required = true)
     private ProfileCharacter profileCharacter;
 }
