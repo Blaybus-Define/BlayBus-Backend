@@ -1,6 +1,7 @@
 package blaybus.blaybus_backend.domain.quest.dto;
 
 import blaybus.blaybus_backend.domain.quest.entity.MemberQuest;
+import blaybus.blaybus_backend.domain.quest.entity.Quest;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 
@@ -25,12 +26,13 @@ public class MemberQuestRecordResponse {
         return new MemberQuestRecordResponse(quest);
     }
 
-    public MemberQuestRecordResponse(MemberQuest quest) {
+    public MemberQuestRecordResponse(MemberQuest memberQuest) {
+        Quest quest = memberQuest.getQuest();
         this.title = quest.getTitle();
         this.questType = quest.getQuestType().getDescription();
-        this.achievedLevel = String.valueOf(quest.getAchievedLevel());
+        this.achievedLevel = String.valueOf(memberQuest.getAchievedLevel());
         this.description = quest.getDescription();
-        this.date = String.valueOf(quest.getDate());
+        this.date = String.valueOf(memberQuest.getDate());
         this.questFrequency = String.valueOf(quest.getFrequency());
     }
 }

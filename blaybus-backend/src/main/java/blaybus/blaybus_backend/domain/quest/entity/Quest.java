@@ -27,8 +27,6 @@ public class Quest {
     private int maxCriterionExperience; // MAX 기준을 만족하는 경험치
 
     private int mediumCriterionExperience; // MID 기준을 만족하는 경험치
-    private LocalDate startDate; // 시작 날짜
-    private LocalDate endDate; // 종료 날짜
 
     @Embedded
     private JobInfo jobInfo;
@@ -41,8 +39,6 @@ public class Quest {
         this.frequency = frequency;
         this.maxCriterionExperience = maxCriterionExperience;
         this.mediumCriterionExperience = mediumCriterionExperience;
-        this.startDate = startDate;
-        this.endDate = endDate;
         this.jobInfo = new JobInfo(department, jobGroup, jobRole);
     }
 }

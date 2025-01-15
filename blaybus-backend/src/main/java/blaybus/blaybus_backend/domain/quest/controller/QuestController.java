@@ -36,14 +36,12 @@ public class QuestController {
         return ResponseEntity.ok(questService.getMyQuests(memberId, year, month, week));
     }
 
-    //직무 부여 퀘스트 생성
     @PostMapping("/job")
     public ResponseEntity<Void> createJobQuest(@RequestBody QuestSaveRequest questSaveRequest) {
         questService.createJobQuest(questSaveRequest);
         return ResponseEntity.ok().build();
     }
 
-    // 리더 부여 퀘스트 생성
     @PostMapping("/leader")
     public ResponseEntity<Void> createLeaderQuest(@RequestBody QuestSaveRequest questSaveRequest) {
         questService.createLeaderQuest(questSaveRequest);

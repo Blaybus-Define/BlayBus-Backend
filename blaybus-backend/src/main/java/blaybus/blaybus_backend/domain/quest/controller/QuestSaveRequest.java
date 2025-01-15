@@ -5,7 +5,7 @@ import blaybus.blaybus_backend.domain.quest.entity.QuestFrequency;
 import blaybus.blaybus_backend.domain.quest.entity.QuestType;
 import lombok.Getter;
 
-import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 public class QuestSaveRequest {
@@ -14,11 +14,10 @@ public class QuestSaveRequest {
     private QuestFrequency frequency;
     private int maxCriterionExperience;
     private int mediumCriterionExperience;
-    private LocalDate startDate;
-    private LocalDate endDate;
     private String department; //소속
     private String jobGroup; //직무그룹
     private String jobRole; //직군
+    private List<String> employeeNumbers;
 
     public Quest toQuest(QuestType questType) {
         return Quest.builder()
@@ -28,8 +27,6 @@ public class QuestSaveRequest {
                 .frequency(this.frequency)
                 .maxCriterionExperience(this.maxCriterionExperience)
                 .mediumCriterionExperience(this.mediumCriterionExperience)
-                .startDate(this.startDate)
-                .endDate(this.endDate)
                 .department(this.department)
                 .jobGroup(this.jobGroup)
                 .jobRole(this.jobRole)
