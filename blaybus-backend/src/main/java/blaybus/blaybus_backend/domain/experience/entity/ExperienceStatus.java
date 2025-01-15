@@ -1,11 +1,14 @@
 package blaybus.blaybus_backend.domain.experience.entity;
 
+import blaybus.blaybus_backend.domain.member.entity.Member;
 import jakarta.persistence.*;
 
 @Entity
-public class ExpStatus {
+public class ExperienceStatus {
     @Id
-    private Long id;                      // 기본 키
+    @OneToOne
+    @JoinColumn(name = "member_id", referencedColumnName = "id")
+    private Member member;                 // 기본 키
 
     @Column(nullable = false)
     private String level;                 // 레벨

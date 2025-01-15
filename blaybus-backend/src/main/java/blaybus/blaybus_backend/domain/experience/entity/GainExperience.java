@@ -1,5 +1,6 @@
 package blaybus.blaybus_backend.domain.experience.entity;
 
+import blaybus.blaybus_backend.domain.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,10 +14,14 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class GainExp {
+public class GainExperience {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "member_id", referencedColumnName = "id")
+    private Member member;           // Member의 id를 외래 키로 사용
 
     @Column(nullable = false)
     private String title;           // 제목
@@ -32,9 +37,6 @@ public class GainExp {
 
     @Column(nullable = false)
     private String exp;             // 획득 경험치
-
-    @Column
-    private String period;          // 획득 주기
 
     @Column
     private String description;     // 비고
