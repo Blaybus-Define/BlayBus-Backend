@@ -43,8 +43,10 @@ public class MemberService {
             return new UpdatePwResponseDTO("비밀번호가 일치하지 않습니다.");
         }
         member.setPassword(updateRequest.getNewPassword());
+        memberRepository.save(member);
 
         return new UpdatePwResponseDTO("비밀번호가 변경되었습니다.");
+
     }
 
     // 프로필 캐릭터 변경
@@ -53,6 +55,7 @@ public class MemberService {
                 .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
 
         member.setProfileCharacter(updateRequest.getProfileCharacter());
+        memberRepository.save(member);
 
         return new UpdatePCharResponseDTO();
     }
