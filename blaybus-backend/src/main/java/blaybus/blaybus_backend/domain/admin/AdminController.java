@@ -1,5 +1,6 @@
 package blaybus.blaybus_backend.domain.admin;
 
+import blaybus.blaybus_backend.domain.experience.service.ExperienceService;
 import blaybus.blaybus_backend.domain.quest.controller.QuestSaveRequest;
 import blaybus.blaybus_backend.domain.quest.dto.MemberQuestResponse;
 import blaybus.blaybus_backend.domain.quest.service.QuestService;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class AdminController {
 
     private final QuestService questService;
+    private final ExperienceService experienceService;
 
     @PostMapping("/quest/job")
     public ResponseEntity<Void> createJobQuest(@RequestBody QuestSaveRequest questSaveRequest) {
@@ -29,8 +31,8 @@ public class AdminController {
     }
 
     @PutMapping("/quest/approve")
-    public ResponseEntity<Void> approveJobQuest(@RequestBody ApproveQuestRequest approveQuestRequest) {
-        questService.approveJobQuest(approveQuestRequest);
+    public ResponseEntity<Void> approveQuest(@RequestBody ApproveQuestRequest approveQuestRequest) {
+        questService.approveQuest(approveQuestRequest);
         return ResponseEntity.ok().build();
     }
 
@@ -39,5 +41,10 @@ public class AdminController {
         return ResponseEntity.ok(questService.getMemberQuests(loginId));
     }
 
-    //인사평가, 전사 프로젝트 경험치 적립
+    //인사평가, 전사 프로젝트 경험치 적립 (근데 따로 만들어야 할지 고민..)
+    @PostMapping("/quest/experience")
+    public ResponseEntity<Void> grantExperience(@RequestBody ExperienceGrantRequest experienceGrantRequest) {
+        experienceService.grantExperience(experienceGrantRequest);
+        return ResponseEntity.ok().build();
+    }
 }

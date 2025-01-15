@@ -1,6 +1,9 @@
 package blaybus.blaybus_backend.domain.quest.service;
 
 import blaybus.blaybus_backend.domain.admin.ApproveQuestRequest;
+import blaybus.blaybus_backend.domain.experience.entity.GainExperience;
+import blaybus.blaybus_backend.domain.experience.repository.ExperienceRepository;
+import blaybus.blaybus_backend.domain.experience.service.ExperienceService;
 import blaybus.blaybus_backend.domain.member.entity.Member;
 import blaybus.blaybus_backend.domain.member.exception.MemberException;
 import blaybus.blaybus_backend.domain.member.repository.MemberRepository;
@@ -28,6 +31,7 @@ public class QuestService {
     private final MemberQuestRepository memberQuestRepository;
     private final QuestRepository questRepository;
     private final MemberRepository memberRepository;
+    private final ExperienceRepository experienceRepository;
 
     public MemberQuestResponse getMyQuests(Long memberId, Integer year, Integer month, Integer week) {
         LocalDate startDate;
@@ -112,12 +116,12 @@ public class QuestService {
         return new MemberQuestResponse(memberQuest);
     }
 
-    public void approveJobQuest(ApproveQuestRequest approveJobQuestRequest) {
-        Long memberQuestId = approveJobQuestRequest.getMemberQuestId();
+    public void approveQuest(ApproveQuestRequest approveQuestRequest) {
+        Long memberQuestId = approveQuestRequest.getMemberQuestId();
         MemberQuest memberQuest = memberQuestRepository.findByIdAndAchievedLevel(memberQuestId, AchievementLevel.NOT_ACHIEVED)
                 .orElseThrow(() -> new QuestException(ErrorCode.ALREADY_COMPLETED));
 
-        AchievementLevel achievementLevel = AchievementLevel.fromValue(approveJobQuestRequest.getAchievementLevel());
+        AchievementLevel achievementLevel = AchievementLevel.fromValue(approveQuestRequest.getAchievementLevel());
         memberQuest.updateAchievedLevel(achievementLevel);
         int experience = switch (achievementLevel) {
             case MAX -> memberQuest.getQuest().getMaxCriterionExperience();
@@ -125,8 +129,23 @@ public class QuestService {
             default -> 0;
         };
         if (experience > 0) {
-            memberQuest.getMember().plusExperience(experience);
+            memberQuest.getMember().plusExperience(experience); //TODO : member 테이블의 totalExperience 없애기
+            createExperience(memberQuest, experience);
         }
+    }
 
+    private void createExperience(MemberQuest memberQuest, int experience) {
+        Quest quest = memberQuest.getQuest();
+        GainExperience gainExperience = GainExperience.builder()
+                .member(memberQuest.getMember())
+                .title(quest.getTitle())
+                .type(String.valueOf(quest.getQuestType()))
+                .date(LocalDate.now())
+                .reason(String.valueOf(memberQuest.getAchievedLevel()))
+                .exp(experience)
+                .description(String.valueOf(memberQuest.getDate()))
+                .build();
+        experienceRepository.save(gainExperience);
+        experienceRepository.flush();
     }
 }

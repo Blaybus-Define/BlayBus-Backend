@@ -21,7 +21,7 @@ public class GainExperience {
 
     @ManyToOne
     @JoinColumn(name = "member_id", referencedColumnName = "id")
-    private Member member;           // Member의 id를 외래 키로 사용
+    private Member member;
 
     @Column(nullable = false)
     private String title;           // 제목
@@ -36,7 +36,7 @@ public class GainExperience {
     private String reason;          // 달성 여부
 
     @Column(nullable = false)
-    private String exp;             // 획득 경험치
+    private int exp;             // 획득 경험치
 
     @Column
     private String description;     // 비고
