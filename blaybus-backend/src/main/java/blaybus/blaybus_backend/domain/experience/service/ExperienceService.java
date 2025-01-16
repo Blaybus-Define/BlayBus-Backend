@@ -120,7 +120,7 @@ public class ExperienceService {
                 .title(request.getTitle())
                 .type(request.getType())
                 .date(LocalDate.now())
-                .reason(request.getDescription())
+                .reason(request.getAchievementLevel())
                 .exp(request.getExperience())
                 .build();
         member.plusExperience(request.getExperience());
