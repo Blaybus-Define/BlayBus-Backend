@@ -22,7 +22,6 @@ public class ExperienceController {
     @GetMapping
     public String findAll(HttpSession session) {
         Long memberId = sessionManager.getMemberId(session);
-        experienceService.findMyAllExperiences(memberId);
         return null;
     }
 

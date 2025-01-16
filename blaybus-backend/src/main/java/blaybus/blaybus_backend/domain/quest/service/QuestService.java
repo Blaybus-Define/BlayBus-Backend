@@ -1,9 +1,10 @@
 package blaybus.blaybus_backend.domain.quest.service;
 
 import blaybus.blaybus_backend.domain.admin.ApproveQuestRequest;
+import blaybus.blaybus_backend.domain.admin.ExperienceQuestRequest;
+import blaybus.blaybus_backend.domain.admin.ExperienceQuestResponse;
 import blaybus.blaybus_backend.domain.experience.entity.GainExperience;
 import blaybus.blaybus_backend.domain.experience.repository.ExperienceRepository;
-import blaybus.blaybus_backend.domain.experience.service.ExperienceService;
 import blaybus.blaybus_backend.domain.member.entity.Member;
 import blaybus.blaybus_backend.domain.member.exception.MemberException;
 import blaybus.blaybus_backend.domain.member.repository.MemberRepository;
@@ -109,11 +110,11 @@ public class QuestService {
         return dates;
     }
 
-    public MemberQuestResponse getMemberQuests(String loginId) {
+    public ExperienceQuestResponse getMemberQuests(String loginId) {
         Member member = memberRepository.findByLoginId(loginId)
                 .orElseThrow(() -> new MemberException(ErrorCode.MEMBER_NOT_FOUND));
         List<MemberQuest> memberQuest = memberQuestRepository.findAllByMember(member);
-        return new MemberQuestResponse(memberQuest);
+        return ExperienceQuestResponse.fromMemberQuests(memberQuest);
     }
 
     public void approveQuest(ApproveQuestRequest approveQuestRequest) {
@@ -129,7 +130,7 @@ public class QuestService {
             default -> 0;
         };
         if (experience > 0) {
-            memberQuest.getMember().plusExperience(experience); //TODO : member 테이블의 totalExperience 없애기
+            memberQuest.getMember().plusExperience(experience);
             createExperience(memberQuest, experience);
         }
     }
@@ -147,5 +148,21 @@ public class QuestService {
                 .build();
         experienceRepository.save(gainExperience);
         experienceRepository.flush();
+    }
+
+    //수동 퀘스트 추가
+    public void createQuest(ExperienceQuestRequest experienceQuestRequest) {
+        Quest quest = experienceQuestRequest.toQuest();
+        questRepository.save(quest);
+
+        Member member = memberRepository.findByLoginId(experienceQuestRequest.getLoginId())
+                .orElseThrow(() -> new MemberException(ErrorCode.MEMBER_NOT_FOUND));
+
+        MemberQuest memberQuest = MemberQuest.builder()
+                .member(member)
+                .quest(quest)
+                .date(experienceQuestRequest.getDate())
+                .build();
+        memberQuestRepository.save(memberQuest);
     }
 }
