@@ -2,6 +2,7 @@ package blaybus.blaybus_backend.domain.auth.dto;
 
 import blaybus.blaybus_backend.domain.member.entity.JobInfo;
 import blaybus.blaybus_backend.domain.member.entity.Member;
+import blaybus.blaybus_backend.domain.member.entity.ProfileCharacter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -48,6 +49,7 @@ public class SignupRequest {
                 .jobInfo(new JobInfo(this.department, this.jobGroup, this.jobRole))
                 .loginId(this.loginId)
                 .password(this.password)
+                .profileCharacter(ProfileCharacter.DEFAULT)
                 .build();
     }
 }

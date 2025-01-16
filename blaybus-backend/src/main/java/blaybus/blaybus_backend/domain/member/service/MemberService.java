@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class MemberService {
     private final MemberRepository memberRepository;
-    private final ExperienceRepository experienceRepository;
 
     // 사용자 정보 조회
     public InfoResponseDTO getInfoById(Long id) {

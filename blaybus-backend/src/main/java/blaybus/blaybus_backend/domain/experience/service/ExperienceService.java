@@ -123,6 +123,7 @@ public class ExperienceService {
                 .reason(request.getDescription())
                 .exp(request.getExperience())
                 .build();
+        member.plusExperience(request.getExperience());
         experienceRepository.save(gainExperience);
     }
 
