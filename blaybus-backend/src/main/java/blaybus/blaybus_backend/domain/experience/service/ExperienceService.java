@@ -144,7 +144,7 @@ public class ExperienceService {
                 } else if (gainExperience.getTitle().contains("하반기")) {
                     expStatus.setSecondHalfPerformanceExp(expStatus.getSecondHalfPerformanceExp() + plusExp);
                 } else {
-                    throw new IllegalArgumentException("인사평가 경험치 제목이 유효하지 않습니다.");
+                    throw new IllegalArgumentException("인사평가 분기가 유효하지 않습니다.");
                 }
                 break;
             case "CORPORATE_PROJECT":
