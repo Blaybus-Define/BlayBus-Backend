@@ -33,6 +33,7 @@ public class ExperienceService {
     private final MemberQuestRepository memberQuestRepository;
     private final ExperienceStatusRepository expStatusRepository;
     private final GainExperienceRepository gainExpRepository;
+    private final ExperienceStatusRepository experienceStatusRepository;
 
     // 경험치 현황 조회
     public ExpStatusResponseDTO getExpStatusById(Long id) {
@@ -125,6 +126,35 @@ public class ExperienceService {
                 .build();
         member.plusExperience(request.getExperience());
         experienceRepository.save(gainExperience);
+
+        ExperienceStatus expStatus = experienceStatusRepository.findByMemberId(member.getId())
+                .orElseThrow(() -> new MemberException(ErrorCode.MEMBER_NOT_FOUND));
+
+        int plusExp = gainExperience.getExp();
+        switch(gainExperience.getType()) {
+            case "TASK":
+                expStatus.setJobRoleExp(expStatus.getJobRoleExp() + plusExp);
+                break;
+            case "LEADER_ASSIGNMENT":
+                expStatus.setLeaderExp(expStatus.getLeaderExp() + plusExp);
+                break;
+            case "PERFORMANCE_EVALUATION":
+                if(gainExperience.getTitle().contains("상반기")) {
+                    expStatus.setFirstHalfPerformanceExp(expStatus.getFirstHalfPerformanceExp() + plusExp);
+                } else if (gainExperience.getTitle().contains("하반기")) {
+                    expStatus.setSecondHalfPerformanceExp(expStatus.getSecondHalfPerformanceExp() + plusExp);
+                } else {
+                    throw new IllegalArgumentException("인사평가 경험치 제목이 유효하지 않습니다.");
+                }
+                break;
+            case "CORPORATE_PROJECT":
+                expStatus.setProjectExp(expStatus.getProjectExp() + plusExp);
+                break;
+            default:
+                throw new IllegalArgumentException("경험치 유형이 유효하지 않습니다.");
+        }
+        // 더해진 경험치 반영
+        experienceStatusRepository.save(expStatus);
     }
 
     public ExperienceQuestResponse findMyExperiences(String loginId) {
