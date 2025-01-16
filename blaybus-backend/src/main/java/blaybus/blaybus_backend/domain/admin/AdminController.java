@@ -44,7 +44,7 @@ public class AdminController {
 
     }
 
-    //TODO : 퀘스트 하나 생성
+    //퀘스트 수동 생성
     @PostMapping("/quest")
     public ResponseEntity<Void> createQuest(@RequestBody ExperienceQuestRequest experienceQuestRequest) {
         questService.createQuest(experienceQuestRequest);
