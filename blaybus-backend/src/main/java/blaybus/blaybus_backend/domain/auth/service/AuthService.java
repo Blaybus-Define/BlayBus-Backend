@@ -49,7 +49,7 @@ public class AuthService {
         memberRepository.save(member);
 
         ExperienceStatus expStatus = new ExperienceStatus();
-        expStatus.setMemberId(member.getId());
+        expStatus.setMember(member);
         experienceStatusRepository.save(expStatus);
     }
 
