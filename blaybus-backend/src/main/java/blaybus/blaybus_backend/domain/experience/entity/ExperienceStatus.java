@@ -3,8 +3,10 @@ package blaybus.blaybus_backend.domain.experience.entity;
 import blaybus.blaybus_backend.domain.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Setter
 @Getter
 public class ExperienceStatus {
 

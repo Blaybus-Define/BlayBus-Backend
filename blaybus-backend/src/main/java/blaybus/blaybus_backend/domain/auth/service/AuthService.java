@@ -4,6 +4,8 @@ import blaybus.blaybus_backend.domain.auth.dto.LoginRequest;
 import blaybus.blaybus_backend.domain.auth.dto.LoginResponse;
 import blaybus.blaybus_backend.domain.auth.dto.SignupRequest;
 import blaybus.blaybus_backend.domain.auth.exception.AuthException;
+import blaybus.blaybus_backend.domain.experience.entity.ExperienceStatus;
+import blaybus.blaybus_backend.domain.experience.repository.ExperienceStatusRepository;
 import blaybus.blaybus_backend.domain.member.entity.Member;
 import blaybus.blaybus_backend.domain.member.exception.MemberException;
 import blaybus.blaybus_backend.domain.member.repository.MemberRepository;
@@ -22,6 +24,7 @@ import static blaybus.blaybus_backend.domain.auth.controller.SessionConst.MEMBER
 public class AuthService {
 
     private final MemberRepository memberRepository;
+    private final ExperienceStatusRepository experienceStatusRepository;
 
     public LoginResponse login(LoginRequest loginRequest, HttpServletRequest request) {
         Member member = memberRepository.findByLoginId(loginRequest.getLoginId())
@@ -44,6 +47,10 @@ public class AuthService {
 
         Member member = signupRequest.toMember();
         memberRepository.save(member);
+
+        ExperienceStatus expStatus = new ExperienceStatus();
+        expStatus.setMemberId(member.getId());
+        experienceStatusRepository.save(expStatus);
     }
 
     public void logout(Long memberId) {

@@ -36,7 +36,7 @@ public class ExperienceService {
 
     // 경험치 현황 조회
     public ExpStatusResponseDTO getExpStatusById(Long id) {
-        ExperienceStatus expStatus = expStatusRepository.findByMember_Id(id)
+        ExperienceStatus expStatus = expStatusRepository.findByMemberId(id)
                 .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
         int annualExp = expStatus.getFirstHalfPerformanceExp() + expStatus.getSecondHalfPerformanceExp()
                     + expStatus.getLeaderExp() + expStatus.getJobRoleExp();
