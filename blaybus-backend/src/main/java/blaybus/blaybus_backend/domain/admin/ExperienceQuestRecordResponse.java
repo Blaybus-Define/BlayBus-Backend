@@ -34,7 +34,7 @@ public class ExperienceQuestRecordResponse {
     private String progress;
 
     // 부여 날짜
-    private LocalDate assignedDate;
+    private String assignedDate;
 
     // 완료 여부
     private boolean isCompleted;
@@ -59,7 +59,7 @@ public class ExperienceQuestRecordResponse {
                 .type(experience.getType())
                 .title(experience.getTitle())
                 .experience(experience.getExp())
-                .assignedDate(LocalDate.parse(experience.getDescription()))
+                .assignedDate(experience.getDescription())
                 .progress(experience.getReason())
                 .isCompleted(true)
                 .build();

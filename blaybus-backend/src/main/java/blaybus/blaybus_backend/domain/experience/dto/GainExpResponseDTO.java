@@ -23,7 +23,7 @@ public class GainExpResponseDTO {
     @Schema(description = "달성 여부", example = "MAX달성")
     private String reason;
     @Schema(description = "획득 경험치", example = "100")
-    private String exp;
+    private Integer exp;
     @Schema(description = "비고", example = "1월")
     private String description;
 
