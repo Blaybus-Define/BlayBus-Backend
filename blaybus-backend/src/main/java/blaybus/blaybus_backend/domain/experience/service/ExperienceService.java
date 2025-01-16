@@ -127,7 +127,8 @@ public class ExperienceService {
         member.plusExperience(request.getExperience());
         experienceRepository.save(gainExperience);
 
-        ExperienceStatus expStatus = experienceStatusRepository.findByMemberId(member.getId())
+        Long memberId = member.getId();
+        ExperienceStatus expStatus = experienceStatusRepository.findByMemberId(memberId)
                 .orElseThrow(() -> new MemberException(ErrorCode.MEMBER_NOT_FOUND));
 
         int plusExp = gainExperience.getExp();
