@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public interface GainExperienceRepository extends JpaRepository<GainExperience, Long> {
     // 최근 달성한 경험치 반환
-    @Query("SELECT g FROM GainExperience g WHERE g.member.id = :memberId ORDER BY g.id DESC")
+    @Query("SELECT g FROM GainExperience g WHERE g.member.id = :memberId ORDER BY g.id DESC LIMIT 1")
     Optional<GainExperience> findRecentByMemberId(Long memberId);
 
     // Entire-ALL : 모두 반환
