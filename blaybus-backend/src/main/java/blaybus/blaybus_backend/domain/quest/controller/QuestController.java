@@ -36,4 +36,16 @@ public class QuestController {
         return ResponseEntity.ok(questService.getMyQuests(memberId, year, month, week));
     }
 
+    @PostMapping("/job")
+    public ResponseEntity<Void> createJobQuest(@RequestBody QuestSaveRequest questSaveRequest) {
+        questService.createJobQuest(questSaveRequest);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/leader")
+    public ResponseEntity<Void> createLeaderQuest(@RequestBody QuestSaveRequest questSaveRequest) {
+        questService.createLeaderQuest(questSaveRequest);
+        return ResponseEntity.ok().build();
+    }
+
 }

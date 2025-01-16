@@ -1,6 +1,10 @@
 package blaybus.blaybus_backend.domain.quest.service;
 
 import blaybus.blaybus_backend.domain.admin.ApproveQuestRequest;
+import blaybus.blaybus_backend.domain.admin.ExperienceQuestRequest;
+import blaybus.blaybus_backend.domain.admin.ExperienceQuestResponse;
+import blaybus.blaybus_backend.domain.experience.entity.GainExperience;
+import blaybus.blaybus_backend.domain.experience.repository.ExperienceRepository;
 import blaybus.blaybus_backend.domain.member.entity.Member;
 import blaybus.blaybus_backend.domain.member.exception.MemberException;
 import blaybus.blaybus_backend.domain.member.repository.MemberRepository;
@@ -28,6 +32,7 @@ public class QuestService {
     private final MemberQuestRepository memberQuestRepository;
     private final QuestRepository questRepository;
     private final MemberRepository memberRepository;
+    private final ExperienceRepository experienceRepository;
 
     public MemberQuestResponse getMyQuests(Long memberId, Integer year, Integer month, Integer week) {
         LocalDate startDate;
@@ -105,19 +110,19 @@ public class QuestService {
         return dates;
     }
 
-    public MemberQuestResponse getMemberQuests(String loginId) {
+    public ExperienceQuestResponse getMemberQuests(String loginId) {
         Member member = memberRepository.findByLoginId(loginId)
                 .orElseThrow(() -> new MemberException(ErrorCode.MEMBER_NOT_FOUND));
         List<MemberQuest> memberQuest = memberQuestRepository.findAllByMember(member);
-        return new MemberQuestResponse(memberQuest);
+        return ExperienceQuestResponse.fromMemberQuests(memberQuest);
     }
 
-    public void approveJobQuest(ApproveQuestRequest approveJobQuestRequest) {
-        Long memberQuestId = approveJobQuestRequest.getMemberQuestId();
+    public void approveQuest(ApproveQuestRequest approveQuestRequest) {
+        Long memberQuestId = approveQuestRequest.getMemberQuestId();
         MemberQuest memberQuest = memberQuestRepository.findByIdAndAchievedLevel(memberQuestId, AchievementLevel.NOT_ACHIEVED)
                 .orElseThrow(() -> new QuestException(ErrorCode.ALREADY_COMPLETED));
 
-        AchievementLevel achievementLevel = AchievementLevel.fromValue(approveJobQuestRequest.getAchievementLevel());
+        AchievementLevel achievementLevel = AchievementLevel.fromValue(approveQuestRequest.getAchievementLevel());
         memberQuest.updateAchievedLevel(achievementLevel);
         int experience = switch (achievementLevel) {
             case MAX -> memberQuest.getQuest().getMaxCriterionExperience();
@@ -126,7 +131,38 @@ public class QuestService {
         };
         if (experience > 0) {
             memberQuest.getMember().plusExperience(experience);
+            createExperience(memberQuest, experience);
         }
+    }
 
+    private void createExperience(MemberQuest memberQuest, int experience) {
+        Quest quest = memberQuest.getQuest();
+        GainExperience gainExperience = GainExperience.builder()
+                .member(memberQuest.getMember())
+                .title(quest.getTitle())
+                .type(String.valueOf(quest.getQuestType()))
+                .date(LocalDate.now())
+                .reason(String.valueOf(memberQuest.getAchievedLevel()))
+                .exp(experience)
+                .description(String.valueOf(memberQuest.getDate()))
+                .build();
+        experienceRepository.save(gainExperience);
+        experienceRepository.flush();
+    }
+
+    //수동 퀘스트 추가
+    public void createQuest(ExperienceQuestRequest experienceQuestRequest) {
+        Quest quest = experienceQuestRequest.toQuest();
+        questRepository.save(quest);
+
+        Member member = memberRepository.findByLoginId(experienceQuestRequest.getLoginId())
+                .orElseThrow(() -> new MemberException(ErrorCode.MEMBER_NOT_FOUND));
+
+        MemberQuest memberQuest = MemberQuest.builder()
+                .member(member)
+                .quest(quest)
+                .date(experienceQuestRequest.getDate())
+                .build();
+        memberQuestRepository.save(memberQuest);
     }
 }

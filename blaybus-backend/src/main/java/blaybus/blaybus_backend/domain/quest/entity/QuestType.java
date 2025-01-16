@@ -7,8 +7,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum QuestType {
 
-    LEADER_ASSIGNMENT("리더부여"),
-    TASK("직무");
+    LEADER_ASSIGNMENT("LEADER_ASSIGNMENT"),
+    TASK("TASK");
 
     private final String description;
 

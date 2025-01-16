@@ -38,9 +38,6 @@ public class SignupRequest {
     @Schema(description = "비밀번호", example = "1111", required = true)
     private String password;
 
-    @Schema(description = "총 경험치", example = "10000", required = true)
-    private int totalExperience;
-
 
 
     public Member toMember() {
@@ -51,7 +48,6 @@ public class SignupRequest {
                 .jobInfo(new JobInfo(this.department, this.jobGroup, this.jobRole))
                 .loginId(this.loginId)
                 .password(this.password)
-                .totalExperience(this.totalExperience)
                 .build();
     }
 }
