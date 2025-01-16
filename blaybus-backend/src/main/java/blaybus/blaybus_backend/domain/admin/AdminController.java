@@ -1,6 +1,7 @@
 package blaybus.blaybus_backend.domain.admin;
 
 import blaybus.blaybus_backend.domain.experience.service.ExperienceService;
+import blaybus.blaybus_backend.domain.member.service.MemberService;
 import blaybus.blaybus_backend.domain.quest.service.QuestService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,7 @@ public class AdminController {
 
     private final QuestService questService;
     private final ExperienceService experienceService;
+    private final MemberService memberService;
 
 
     //퀘스트 완료 처리
@@ -49,5 +51,11 @@ public class AdminController {
     public ResponseEntity<Void> createQuest(@RequestBody ExperienceQuestRequest experienceQuestRequest) {
         questService.createQuest(experienceQuestRequest);
         return ResponseEntity.ok().build();
+    }
+
+    //멤버 조회
+    @GetMapping("/member")
+    public ResponseEntity<MemberResponse> findMember(@RequestParam String loginId) {
+        return ResponseEntity.ok(memberService.findMemberByLoginId(loginId));
     }
 }
