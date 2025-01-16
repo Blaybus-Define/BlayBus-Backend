@@ -26,8 +26,6 @@ public class ExperienceQuestRequest {
     // 비고(ex. 5회)
     private String description;
 
-    private String AchievementLevel;
-
     private LocalDate date;
 
     // 경험치(ex.2000)
