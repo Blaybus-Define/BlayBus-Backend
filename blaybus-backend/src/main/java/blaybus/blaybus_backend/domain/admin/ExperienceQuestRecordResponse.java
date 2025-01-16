@@ -15,6 +15,8 @@ import java.time.LocalDate;
 @Builder
 public class ExperienceQuestRecordResponse {
 
+    private Long memberQuestId;
+
     // 유형 (리더부여/직부별/전사프로젝트/인사평가)
     private String type;
 
@@ -43,6 +45,7 @@ public class ExperienceQuestRecordResponse {
         AchievementLevel achievedLevel = memberQuest.getAchievedLevel();
 
         return ExperienceQuestRecordResponse.builder()
+                .memberQuestId(memberQuest.getId())
                 .type(String.valueOf(memberQuest.getQuest().getQuestType()))
                 .title(memberQuest.getQuest().getTitle())
                 .description(memberQuest.getQuest().getDescription())
