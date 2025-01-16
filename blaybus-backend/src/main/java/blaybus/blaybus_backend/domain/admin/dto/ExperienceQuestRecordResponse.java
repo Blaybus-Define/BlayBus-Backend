@@ -1,4 +1,4 @@
-package blaybus.blaybus_backend.domain.admin;
+package blaybus.blaybus_backend.domain.admin.dto;
 
 import blaybus.blaybus_backend.domain.experience.entity.GainExperience;
 import blaybus.blaybus_backend.domain.quest.entity.AchievementLevel;
@@ -6,7 +6,6 @@ import blaybus.blaybus_backend.domain.quest.entity.MemberQuest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import org.checkerframework.checker.units.qual.A;
 
 import java.time.LocalDate;
 

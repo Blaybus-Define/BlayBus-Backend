@@ -1,7 +1,7 @@
 package blaybus.blaybus_backend.domain.experience.service;
 
-import blaybus.blaybus_backend.domain.admin.ExperienceQuestRequest;
-import blaybus.blaybus_backend.domain.admin.ExperienceQuestResponse;
+import blaybus.blaybus_backend.domain.admin.dto.ExperienceQuestRequest;
+import blaybus.blaybus_backend.domain.admin.dto.ExperienceQuestResponse;
 import blaybus.blaybus_backend.domain.experience.dto.ExpStatusResponseDTO;
 import blaybus.blaybus_backend.domain.experience.dto.GainExpResponseDTO;
 import blaybus.blaybus_backend.domain.experience.entity.ExperienceStatus;

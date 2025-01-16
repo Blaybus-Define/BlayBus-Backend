@@ -1,5 +1,9 @@
-package blaybus.blaybus_backend.domain.admin;
+package blaybus.blaybus_backend.domain.admin.controller;
 
+import blaybus.blaybus_backend.domain.admin.dto.ApproveQuestRequest;
+import blaybus.blaybus_backend.domain.admin.dto.ExperienceQuestRequest;
+import blaybus.blaybus_backend.domain.admin.dto.ExperienceQuestResponse;
+import blaybus.blaybus_backend.domain.admin.dto.MemberResponse;
 import blaybus.blaybus_backend.domain.experience.service.ExperienceService;
 import blaybus.blaybus_backend.domain.member.service.MemberService;
 import blaybus.blaybus_backend.domain.quest.service.QuestService;

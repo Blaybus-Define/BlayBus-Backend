@@ -1,4 +1,4 @@
-package blaybus.blaybus_backend.domain.admin;
+package blaybus.blaybus_backend.domain.admin.dto;
 
 import blaybus.blaybus_backend.domain.experience.entity.GainExperience;
 import blaybus.blaybus_backend.domain.quest.entity.MemberQuest;

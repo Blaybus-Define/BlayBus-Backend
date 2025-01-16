@@ -1,8 +1,8 @@
 package blaybus.blaybus_backend.domain.quest.service;
 
-import blaybus.blaybus_backend.domain.admin.ApproveQuestRequest;
-import blaybus.blaybus_backend.domain.admin.ExperienceQuestRequest;
-import blaybus.blaybus_backend.domain.admin.ExperienceQuestResponse;
+import blaybus.blaybus_backend.domain.admin.dto.ApproveQuestRequest;
+import blaybus.blaybus_backend.domain.admin.dto.ExperienceQuestRequest;
+import blaybus.blaybus_backend.domain.admin.dto.ExperienceQuestResponse;
 import blaybus.blaybus_backend.domain.experience.entity.GainExperience;
 import blaybus.blaybus_backend.domain.experience.repository.ExperienceRepository;
 import blaybus.blaybus_backend.domain.member.entity.Member;

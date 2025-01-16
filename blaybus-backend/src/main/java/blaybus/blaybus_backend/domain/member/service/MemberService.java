@@ -1,14 +1,12 @@
 package blaybus.blaybus_backend.domain.member.service;
 
-import blaybus.blaybus_backend.domain.admin.MemberResponse;
-import blaybus.blaybus_backend.domain.experience.repository.ExperienceRepository;
+import blaybus.blaybus_backend.domain.admin.dto.MemberResponse;
 import blaybus.blaybus_backend.domain.member.dto.*;
 import blaybus.blaybus_backend.domain.member.exception.MemberException;
 import blaybus.blaybus_backend.domain.member.repository.MemberRepository;
 import blaybus.blaybus_backend.domain.member.entity.Member;
 import blaybus.blaybus_backend.global.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
