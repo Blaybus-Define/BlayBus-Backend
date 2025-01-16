@@ -30,7 +30,7 @@ public class GainExperience {
     private String type;            // 구분
 
     @Column(nullable = false)
-    private LocalDate date;         // 달성 날짜
+    private LocalDate date;         // 경험치 수령 날짜
 
     @Column
     private String reason;          // 달성 여부
